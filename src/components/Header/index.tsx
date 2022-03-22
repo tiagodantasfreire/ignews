@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ActiveLink } from '../ActiveLink';
 
 import { SignInButton } from '../SignInButton';
 
@@ -15,8 +16,12 @@ export function Header() {
           height="100%"
         />
         <nav>
-          <a className={styles.active} href="">Home</a>
-          <a href="">Posts</a>
+          <ActiveLink activeClassName={styles.active} href="/">
+            <a>Home</a>
+          </ActiveLink>
+          <ActiveLink activeClassName={styles.active} href="/posts">
+            <a>Posts</a>
+          </ActiveLink>
         </nav>
 
         <SignInButton />
