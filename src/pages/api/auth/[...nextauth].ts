@@ -1,3 +1,4 @@
+// @ts-nocheck
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import { query as q } from 'faunadb';
@@ -39,7 +40,7 @@ export default NextAuth({
             ])
           )
         );
-        
+
         return {
           ...session,
           activeSubscription: userActiveSubscription,
@@ -48,9 +49,8 @@ export default NextAuth({
         return {
           ...session,
           activeSubscription: null,
-        }
+        };
       }
-
     },
     async signIn({ user }) {
       const { email } = user;
