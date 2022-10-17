@@ -36,7 +36,10 @@ export default function Post({ post }: PostProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, params, }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
   const session = await getSession({ req });
   const { slug } = params;
 
@@ -45,12 +48,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params, }) =
       redirect: {
         destination: `/posts/preview/${slug}`,
         permanent: false,
-      }
-    }
+      },
+    };
   }
 
   const prismic = getPrismicClient(req);
-  const response = await prismic.getByUID('post', String(slug), {});
+  const response: {
+    data: { title: string; content: string };
+    last_publication_date: string;
+  } = await prismic.getByUID('post', String(slug), {});
+
   const post = {
     slug,
     title: RichText.asText(response.data.title),
